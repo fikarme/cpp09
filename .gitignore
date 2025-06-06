@@ -1,0 +1,6 @@
+lain
+*.o
+*.out
+.DS_Store
+.vscode
+Obj/
