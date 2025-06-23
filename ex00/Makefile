@@ -2,19 +2,19 @@ NAME		= btc
 CPP			= c++
 CPPFLAGS	= -std=c++98 -Wall -Wextra -Werror
 RM			= rm -rf
-OBJ			= $(SRCS:.cpp=.o)
+OBJS		= $(SRCS:.cpp=.o)
 SRCS		= main.cpp BitcoinExchange.cpp
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(OBJS)
+	@$(CPP) $(CPPFLAGS) $(OBJS) -o $(NAME)
 
 %.o: %.cpp
 	@$(CPP) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJ)
+	@$(RM) $(OBJS)
 
 fclean: clean
 	@$(RM) $(NAME)

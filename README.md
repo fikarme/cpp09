@@ -16,3 +16,5 @@ merge insertion sort fark
 map ile küçük bi şey kur
 ex00 için map, ex01 için stack, ex02 için  vector ve list
 Ex02 de vector ile deque
+
+makefileda CXX ile CPP farkı
