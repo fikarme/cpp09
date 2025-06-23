@@ -8,7 +8,7 @@ inline void r(const char *msg) { cerr << RED << msg << RST << endl; }
 
 int main(int ac, char **av) {
 	if (ac != 2) {
-		cerr << RED << "Error: could not open file." << RST << endl;
+		r("Error: could not open file.");
 		return 1;
 	}
 

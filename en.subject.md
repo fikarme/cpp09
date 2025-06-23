@@ -71,7 +71,6 @@ $>
 # ex01: Reverse Polish Notation
 
 Files to turn in :Makefile, main.cpp, RPN.{cpp, hpp}
-Forbidden functions :None
 
 You must create a program with these constraints:
 - The program name is RPN.
