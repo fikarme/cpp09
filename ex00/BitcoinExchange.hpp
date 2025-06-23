@@ -11,6 +11,15 @@ using std::cout;
 using std::endl;
 using std::cerr;
 
+class BitcoinExchange {
+public:
+	~BitcoinExchange();
+	BitcoinExchange();
+	BitcoinExchange(const BitcoinExchange &cpy);
+	BitcoinExchange &operator=(const BitcoinExchange &rhs);
 
+private:
+	
+};
 
 #endif
