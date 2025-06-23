@@ -7,9 +7,9 @@
 - no function implementation in header files
 
 # Module-specific rules
-It is mandatory to use the standard containers to perform each exercise in this module.
+ℹ️ It is mandatory to use the standard containers to perform each exercise in this module.
 Once a container is used you cannot use it for the rest of the module.
-You must use at least one container for each exercise with the exception of exercise 02 which requires the use of two containers.
+⚠️ You must use at least one container for each exercise with the exception of exercise 02 which requires the use of two containers.
 
 # ex00: Bitcoin Exchange
 Files to turn in :Makefile, main.cpp, BitcoinExchange.{cpp, hpp}
