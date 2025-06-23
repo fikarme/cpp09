@@ -74,7 +74,8 @@ Forbidden functions :None
 You must create a program with these constraints:
 - The program name is RPN.
 - Your program must take an inverted Polish mathematical expression as an argument.
-- The numbers used in this operation and passed as arguments will always be less than 10. The calculation itself but also the result do not take into account this rule.
+- The numbers used in this operation and passed as arguments will always be less than 10.
+	The calculation itself but also the result do not take into account this rule.
 - Your program must process this expression and output the correct result on the standard output.
 - If an error occurs during the execution of the program an error message should be displayed on the standard error.
 - Your program must be able to handle operations with these tokens: "+ - / *".
@@ -108,7 +109,8 @@ You must create a program with these constraints:
 To clarify, yes, you need to use the Ford-Johnson algorithm.
 (source: Art Of Computer Programming, Vol.3. Merge Insertion, Page 184.)
 
-- If an error occurs during program execution, an error message should be displayed on the standard error.
+- If an error occurs during program execution,
+	an error message should be displayed on the standard error.
 
 You must use at least two different containers in your code to validate this exercise.
 Your program must be able to handle at least 3000 different integers.
@@ -119,7 +121,8 @@ Here are some additional guidelines on the information you should display line b
 
 - On the first line you must display an explicit text followed by the unsorted positive integer sequence.
 - On the second line you must display an explicit text followed by the sorted positive integer sequence.
-- On the third line, you must display an explicit message indicating the time taken by your algorithm, specifying the first container used to sort the positive integer sequence.
+- On the third line, you must display an explicit message indicating the time taken by your algorithm,
+	specifying the first container used to sort the positive integer sequence.
 - On the last line you must display an explicit text indicating the time used by your algorithm by specifying the second container used to sort the positive integer sequence.
 
 The format for the display of the time used to carry out your sorting is free but the precision chosen must allow to clearly see the difference between the two containers used.
