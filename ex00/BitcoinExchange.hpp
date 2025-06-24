@@ -15,24 +15,23 @@ using std::ifstream;
 using std::map;
 using std::string;
 using std::exception;
+using std::runtime_error;
 
-inline void err(const string &msg);
+void r(const string &msg);
 
 class BitcoinExchange {
 private:
 	map<string, float> _db;
 
-	BitcoinExchange();
-
 	bool isValidDate(const string &date);
-	bool isValidValue(const string &valueStr, float &value);
+	bool isValidVal(const string &valStr, float &val);
 	void processLine(const string &line);
 
 public:
-	BitcoinExchange(const string &databaseFile);
+	~BitcoinExchange();
+	BitcoinExchange();
 	BitcoinExchange(const BitcoinExchange &cpy);
 	BitcoinExchange &operator=(const BitcoinExchange &rhs);
-	~BitcoinExchange();
 
 	void run(const string &inputFile);
 };

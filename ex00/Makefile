@@ -22,6 +22,6 @@ fclean: clean
 re: fclean all
 
 e: fclean all
-	@./$(NAME)
+	@./$(NAME) input.txt
 
 .PHONY: all clean fclean re e
