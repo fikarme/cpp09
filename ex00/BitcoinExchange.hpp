@@ -7,6 +7,8 @@
 #include <fstream>
 #include <sstream>
 #include <cstdlib>
+#include <stdexcept>
+#include <algorithm>
 
 using std::cerr;
 using std::cout;

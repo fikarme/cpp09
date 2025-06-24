@@ -49,18 +49,22 @@ void BitcoinExchange::run(const string &inputFile) {
 }
 
 void BitcoinExchange::processLine(const string &line) {
-	size_t separatorPos = line.find(" | ");
-	if (separatorPos == string::npos) {
-		r("bad input => " + line);
+	size_t pipePos = line.find(" | ");
+	if (pipePos == string::npos) {
+		r("PIPE bad input => " + line);
 		return;
 	}
 
-	string date = line.substr(0, separatorPos);
-	string valStr = line.substr(separatorPos + 3);
+	string date = line.substr(0, pipePos);
+	string valStr = line.substr(pipePos + 3);
 	float val;
 
+	if (date.empty() || valStr.empty()) {
+		r("EMPTY bad input => " + line);
+		return;
+	}
 	if (!isValidDate(date)) {
-		r("bad input => " + date);
+		r("DATE bad input => " + date);
 		return;
 	}
 	if (!isValidVal(valStr, val))
@@ -82,9 +86,9 @@ bool BitcoinExchange::isValidDate(const string &date) {
 	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
 		return false;
 
-	int year = atoi(date.substr(0, 4).c_str());
-	int month = atoi(date.substr(5, 2).c_str());
-	int day = atoi(date.substr(8, 2).c_str());
+	int year	= atoi(date.substr(0, 4).c_str());
+	int month	= atoi(date.substr(5, 2).c_str());
+	int day		= atoi(date.substr(8, 2).c_str());
 
 	if (month < 1 || month > 12 || day < 1 || day > 31)
 		return false;
@@ -99,22 +103,24 @@ bool BitcoinExchange::isValidDate(const string &date) {
 
 bool BitcoinExchange::isValidVal(const string &valStr, float &val) {
 	char *end;
-	val = strtof(valStr.c_str(), &end);
-
-	if (*end != '\0' && *end != '\n') {
-		string temp = end;
-		size_t first_char = temp.find_first_not_of(" \t\n\r");
-		if (first_char != string::npos) {
-			r("bad input => " + valStr);
-			return false;
-		}
+	
+	if (valStr.find_first_not_of("+-0123456789.") != string::npos) {
+		r("NAN bad input => " + valStr);
+		return false;
 	}
+	
+	val = strtof(valStr.c_str(), &end);
+	
 	if (val < 0) {
 		r("not a positive number.");
 		return false;
 	}
 	if (val > 1000) {
 		r("too large a number.");
+		return false;
+	}
+	if (end == valStr.c_str() || *end != '\0') {
+		r("NAN bad input => " + valStr);
 		return false;
 	}
 	return true;
