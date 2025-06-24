@@ -21,41 +21,37 @@ RPN &RPN::operator=(const RPN &rhs) {
 int RPN::calculate(const string &expr) {
 	for (size_t i = 0; i < expr.length(); i++) {
 		char c = expr[i];
-
+		
 		if (isspace(c))
 			continue;
-
 		if (isdigit(c))
 			_nbrs.push(c - '0');
-
 		else if (c == '+' || c == '-' || c == '*' || c == '/') {
-			performOperation(c);
-		}
-		else {
-			r("Invalid character in expression");
-			throw runtime_error("Invalid character in expression");
+			if (_nbrs.size() < 2) {
+				r("Not enough operands for operation");
+				throw runtime_error("Not enough operands for operation");
+			}
+			applyOp(c);
 		}
 	}
 
 	if (_nbrs.size() != 1) {
-		r("The expression is not valid");
+		r("---The expression is not valid");
 		throw runtime_error("The expression is not valid");
 	}
-
+	
 	return _nbrs.top();
 }
 
-void RPN::performOperation(char op) {
-	if (_nbrs.size() < 2) {
-		r("Not enough operands for operation");
-		throw runtime_error("Not enough operands for operation");
-	}
-	
+void RPN::applyOp(char op) {
+
 	int b = _nbrs.top();
 	_nbrs.pop();
 	int a = _nbrs.top();
 	_nbrs.pop();
-	switch (op) {
+	
+	switch (op)
+	{
 	case '+':
 		_nbrs.push(a + b);
 		break;
@@ -76,5 +72,4 @@ void RPN::performOperation(char op) {
 		r("Unknown operator");
 		throw runtime_error("Unknown operator");
 	}
-	
 }

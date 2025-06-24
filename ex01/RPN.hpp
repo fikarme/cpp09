@@ -32,7 +32,7 @@ public:
 	int calculate(const string &expr);
 
 private:
-	void performOperation(char op);
+	void applyOp(char op);
 
 	stack<int> _nbrs;
 
