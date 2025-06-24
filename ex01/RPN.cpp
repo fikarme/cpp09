@@ -25,9 +25,9 @@ int RPN::calculate(const string &expr) {
 		if (isspace(c))
 			continue;
 
-		if (isdigit(c)) {
+		if (isdigit(c))
 			_nbrs.push(c - '0');
-		}
+
 		else if (c == '+' || c == '-' || c == '*' || c == '/') {
 			performOperation(c);
 		}
@@ -50,4 +50,31 @@ void RPN::performOperation(char op) {
 		r("Not enough operands for operation");
 		throw runtime_error("Not enough operands for operation");
 	}
+	
+	int b = _nbrs.top();
+	_nbrs.pop();
+	int a = _nbrs.top();
+	_nbrs.pop();
+	switch (op) {
+	case '+':
+		_nbrs.push(a + b);
+		break;
+	case '-':
+		_nbrs.push(a - b);
+		break;
+	case '*':
+		_nbrs.push(a * b);
+		break;
+	case '/':
+		if (b == 0) {
+			r("Division by zero");
+			throw runtime_error("Division by zero");
+		}
+		_nbrs.push(a / b);
+		break;
+	default:
+		r("Unknown operator");
+		throw runtime_error("Unknown operator");
+	}
+	
 }
