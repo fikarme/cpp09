@@ -2,24 +2,39 @@
 #define BITCOINEXCHANGE_HPP
 
 #include <iostream>
+#include <string>
+#include <map>
+#include <fstream>
+#include <sstream>
+#include <cstdlib>
 
-#define RST "\033[0m"
-#define RED "\033[1;31m"
-#define YLW "\033[1;33m"
-
+using std::cerr;
 using std::cout;
 using std::endl;
-using std::cerr;
+using std::ifstream;
+using std::map;
+using std::string;
+using std::exception;
+
+inline void err(const string &msg);
 
 class BitcoinExchange {
-public:
-	~BitcoinExchange();
+private:
+	map<string, float> _db;
+
 	BitcoinExchange();
+
+	bool isValidDate(const string &date);
+	bool isValidValue(const string &valueStr, float &value);
+	void processLine(const string &line);
+
+public:
+	BitcoinExchange(const string &databaseFile);
 	BitcoinExchange(const BitcoinExchange &cpy);
 	BitcoinExchange &operator=(const BitcoinExchange &rhs);
+	~BitcoinExchange();
 
-private:
-	
+	void run(const string &inputFile);
 };
 
 #endif
