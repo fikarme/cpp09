@@ -103,12 +103,6 @@ bool BitcoinExchange::isValidDate(const string &date) {
 
 bool BitcoinExchange::isValidVal(const string &valStr, float &val) {
 	char *end;
-	
-	if (valStr.find_first_not_of("+-0123456789.") != string::npos) {
-		r("NAN bad input => " + valStr);
-		return false;
-	}
-	
 	val = strtof(valStr.c_str(), &end);
 	
 	if (val < 0) {
@@ -117,6 +111,10 @@ bool BitcoinExchange::isValidVal(const string &valStr, float &val) {
 	}
 	if (val > 1000) {
 		r("too large a number.");
+		return false;
+	}
+	if (valStr.find_first_not_of("+-0123456789.") != string::npos) {
+		r("NAN bad input => " + valStr);
 		return false;
 	}
 	if (end == valStr.c_str() || *end != '\0') {
