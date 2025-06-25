@@ -43,10 +43,6 @@ bool isNegative(int ac, char **av) {
 }
 
 int main(int ac, char **av) {
-	//print all av
-	for (int i = 1; i < ac; ++i)
-		cout << av[i] << " ";
-	cout << endl;
 
 	if (ac < 3)
 		return r("positive integer sequence as an arg req");

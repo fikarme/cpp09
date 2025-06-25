@@ -22,7 +22,11 @@ using std::pow;
 using std::clock;
 #include <algorithm>
 using std::swap;
-#include <iterator>
+using std::lower_bound;
+#include <utility>
+using std::pair;
+using std::make_pair;
+
 
 class PmergeMe {
 public:

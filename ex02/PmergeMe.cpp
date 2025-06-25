@@ -19,7 +19,9 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &rhs) {
 }
 
 size_t PmergeMe::jacobsthal(int k) {
-	return (pow(2, k + 1) + pow(-1, k)) / 3;
+	if (k < 0)
+		return 0;
+	return ((1 << (k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3;
 }
 
 void PmergeMe::addArgs(int ac, char **av) {
@@ -42,38 +44,55 @@ void PmergeMe::sort() {
 	_timeDeq = (deqEnd - deqStart) * 1000.0 / CLOCKS_PER_SEC;
 }
 
-void PmergeMe::sortVecPair(vector<int> nums) {
-	vector<int>::iterator it = nums.begin();
-	vector<int>::iterator next = it + 1;
-	if (*it > *next)
-		swap(*it, *next);
-	_vecSorted = nums;
+void PmergeMe::processVecPairs(vector<int> &nums, vector<int> &mainChain, vector<int> &pend) {
+	vector<pair<int, int> > pairs;
+	for (size_t i = 0; i < nums.size(); i += 2)
+		if (nums[i] > nums[i+1])
+			pairs.push_back(make_pair(nums[i], nums[i+1]));
+		else
+			pairs.push_back(make_pair(nums[i+1], nums[i]));
+
+	for (size_t i = 0; i < pairs.size(); ++i) {
+		mainChain.push_back(pairs[i].first);
+		pend.push_back(pairs[i].second);
+	}
 }
 
 void PmergeMe::sortVec(vector<int> nums) {
-	if (nums.size() == 2) {
-		sortVecPair(nums);
+	// Base case: a list of 0 or 1 is already sorted
+	if (nums.size() < 2) {
+		_vecSorted = nums;
 		return;
 	}
-	
-	size_t k = 0;
-	while (jacobsthal(k) < nums.size()) {
-		++k;
-	}
-	
-	vector<int> sorted;
-	for (size_t i = 0; i < k; ++i) {
-		sorted.push_back(jacobsthal(i));
-	}
-	
-}
 
-void PmergeMe::processVecPairs(vector<int> &nums, vector<int> &bigger, vector<int> &smaller) {
-	for (size_t i = 0; i < nums.size(); ++i) {
-		if (i % 2 == 0) {
-			bigger.push_back(nums[i]);
-		} else {
-			smaller.push_back(nums[i]);
-		}
+	// Handle the straggler if the list size is odd
+	int straggler = -1;
+	bool hasStraggler = nums.size() % 2 != 0;
+	if (hasStraggler) {
+		straggler = nums.back();
+		nums.pop_back();
 	}
+
+	// Create and sort pairs, then split into main and pend chains
+	vector<int> mainChain, pend;
+	processVecPairs(nums, mainChain, pend);
+
+	// Recursively sort the main chain of larger elements
+	sortVec(mainChain);
+	vector<int> sortedChain = _vecSorted; // Get the result from the member variable
+
+	// Insert the pending elements into the sorted main chain using binary search
+	for (size_t i = 0; i < pend.size(); ++i) {
+		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), pend[i]);
+		sortedChain.insert(it, pend[i]);
+	}
+
+	// Insert the straggler if it exists
+	if (hasStraggler) {
+		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), straggler);
+		sortedChain.insert(it, straggler);
+	}
+
+	// The final sorted list is now ready
+	_vecSorted = sortedChain;
 }
