@@ -34,7 +34,7 @@ public:
 	PmergeMe();
 	PmergeMe(const PmergeMe &cpy);
 	PmergeMe &operator=(const PmergeMe &rhs);
-	
+
 	double _timeVec;
 	double _timeDeq;
 	vector<int> _vec;
@@ -45,17 +45,17 @@ public:
 	size_t jacobsthal(int k);
 	void addArgs(int ac, char **av);
 	void sort();
-	
-	void sortVecPair(vector<int> nums);
-	void processVecPairs(vector<int> &nums, vector<int> &bigger, vector<int> &smaller);
+
 	void sortVec(vector<int> nums);
-	
-		
+
+	void sortDeq(deque<int> nums);
+
+
 	// static deque<int> sortDeqPair(deque<int> nums);
 	// static void processDeqPairs(deque<int> &nums, deque<int> &bigger, deque<int> &smaller);
 	// static deque<int> sortDeq(deque<int> nums);
-	
-	
+
+
 private:
 };
 

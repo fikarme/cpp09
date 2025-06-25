@@ -38,9 +38,6 @@ int RPN::calculate(const string &expr) {
 }
 
 void RPN::applyOp(char op) {
-	// if (_nbrs.size() < 2)
-	// 	throw runtime_error("not enough operands for operation");
-
 	int b = _nbrs.top();
 	_nbrs.pop();
 	int a = _nbrs.top();
