@@ -1,9 +1,5 @@
 #include "RPN.hpp"
 
-void r(const string &msg) {
-	cerr << "\033[1;31mERROR: " << msg << "\033[0m" << endl;
-}
-
 RPN::~RPN() {}
 
 RPN::RPN() {}

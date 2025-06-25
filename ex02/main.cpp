@@ -1,10 +1,8 @@
 #include "PmergeMe.hpp"
 
-inline void y(const char* msg) {
-	cout << endl << YLW << " _/\\_____" << msg << "_____/\\_ " << RST << endl;
+void r(const string &msg) {
+	cerr << "\033[1;31mERROR: " << msg << "\033[0m" << endl;
 }
-
-inline void r(const char *msg) { cerr << RED << msg << RST << endl; }
 
 int main(int ac, char **av) {
 	if (ac != 2) {

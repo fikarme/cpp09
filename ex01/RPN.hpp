@@ -3,13 +3,10 @@
 
 #include <iostream>
 #include <string>
-#include <map>
-#include <fstream>
-#include <sstream>
+#include <stack>
 #include <cstdlib>
 #include <stdexcept>
 #include <algorithm>
-#include <stack>
 
 using std::cerr;
 using std::cout;
@@ -18,8 +15,6 @@ using std::string;
 using std::exception;
 using std::runtime_error;
 using std::stack;
-
-void r(const string &msg);
 
 class RPN {
 public:
@@ -31,9 +26,8 @@ public:
 
 private:
 	void applyOp(char op);
-
 	stack<int> _nbrs;
 
-	};
+};
 
 #endif
