@@ -1,3 +1,4 @@
+
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP
 
@@ -17,6 +18,11 @@ using std::runtime_error;
 using std::atoi;
 #include <cmath>
 using std::pow;
+#include <ctime>
+using std::clock;
+#include <algorithm>
+using std::swap;
+#include <iterator>
 
 class PmergeMe {
 public:
@@ -32,14 +38,13 @@ public:
 	deque<int> _deq;
 	deque<int> _deqSorted;
 
-	static size_t jacobsthal(int k);
+	size_t jacobsthal(int k);
 	void addArgs(int ac, char **av);
-	void sortBuble();
-	void sortClock();
+	void sort();
 	
-	static vector<int> sortVecPair(vector<int> nums);
-	static void processVecPairs(vector<int> &nums, vector<int> &bigger, vector<int> &smaller);
-	static vector<int> sortVec(vector<int> nums);
+	void sortVecPair(vector<int> nums);
+	void processVecPairs(vector<int> &nums, vector<int> &bigger, vector<int> &smaller);
+	void sortVec(vector<int> nums);
 	
 		
 	// static deque<int> sortDeqPair(deque<int> nums);

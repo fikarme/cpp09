@@ -70,7 +70,7 @@ int main(int ac, char **av) {
 	try
 	{
 		PmergeMe.addArgs(ac, av);
-		PmergeMe.sortClock();
+		PmergeMe.sort();
 	}
 	catch (const std::runtime_error &e) { return r(e.what()); }
 	
@@ -81,12 +81,12 @@ int main(int ac, char **av) {
 	
 	cout << "VEC After: ";
 	for (int i = 0; i < ac - 1; ++i)
-		cout << PmergeMe._vec[i] << " ";
+		cout << PmergeMe._vecSorted[i] << " ";
 	cout << endl;
 	
 	cout << "DEQ After: ";
 	for (int i = 0; i < ac - 1; ++i)
-		cout << PmergeMe._deq[i] << " ";
+		cout << PmergeMe._deqSorted[i] << " ";
 	cout << endl;
 	
 	cout << "Time to process a range of " << ac - 1
@@ -97,17 +97,17 @@ int main(int ac, char **av) {
 		 << " elements with std::deque: " << PmergeMe._timeDeq
 		 << " us" << endl;
 
-	cout << "Time difference: "
-		 << fabs(PmergeMe._timeVec - PmergeMe._timeDeq)
-		 << " us" << endl;
+	// cout << "Time difference: "
+	// 	 << fabs(PmergeMe._timeVec - PmergeMe._timeDeq)
+	// 	 << " us" << endl;
 		 
-	cout << "Ratio: "
-		 << (PmergeMe._timeVec / PmergeMe._timeDeq)
-		 << endl;
+	// cout << "Ratio: "
+	// 	 << (PmergeMe._timeVec / PmergeMe._timeDeq)
+	// 	 << endl;
 		 
-	cout << "Jacobsthal: "
-		 << PmergeMe.jacobsthal(13) // Example usage, can be adjusted
-		 << endl;
+	// cout << "Jacobsthal: "
+	// 	 << PmergeMe.jacobsthal(13) // Example usage, can be adjusted
+	// 	 << endl;
 		 
 	cout << endl;
 	return 0;

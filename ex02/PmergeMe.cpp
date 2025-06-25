@@ -30,33 +30,9 @@ void PmergeMe::addArgs(int ac, char **av) {
 	}
 }
 
-void PmergeMe::sortBuble() {
+void PmergeMe::sort() {
 	clock_t vecStart = clock();
-	for (size_t i = 0; i < _vec.size() - 1; ++i) {
-		for (size_t j = i + 1; j < _vec.size(); ++j) {
-			if (_vec[i] > _vec[j]) {
-				std::swap(_vec[i], _vec[j]);
-			}
-		}
-	}
-	clock_t vecEnd = clock();
-	_timeVec = (vecEnd - vecStart) * 1000.0 / CLOCKS_PER_SEC;
-
-	clock_t deqStart = clock();
-	for (size_t i = 0; i < _deq.size() - 1; ++i) {
-		for (size_t j = i + 1; j < _deq.size(); ++j) {
-			if (_deq[i] > _deq[j]) {
-				std::swap(_deq[i], _deq[j]);
-			}
-		}
-	}
-	clock_t deqEnd = clock();
-	_timeDeq = (deqEnd - deqStart) * 1000.0 / CLOCKS_PER_SEC;
-}
-
-void PmergeMe::sortClock() {
-	clock_t vecStart = clock();
-	_vecSorted = sortVec(_vec);
+	sortVec(_vec);
 	clock_t vecEnd = clock();
 	_timeVec = (vecEnd - vecStart) * 1000.0 / CLOCKS_PER_SEC;
 
@@ -66,15 +42,18 @@ void PmergeMe::sortClock() {
 	_timeDeq = (deqEnd - deqStart) * 1000.0 / CLOCKS_PER_SEC;
 }
 
-// vector<int> PmergeMe::sortVecPair(vector<int> nums) {
-// 	vector<int> bigger, smaller;
-// 	processVecPairs(nums, bigger, smaller);
-// 	// return sortVec(bigger) + sortVec(smaller);
-// }
+void PmergeMe::sortVecPair(vector<int> nums) {
+	vector<int>::iterator it = nums.begin();
+	vector<int>::iterator next = it + 1;
+	if (*it > *next)
+		swap(*it, *next);
+	_vecSorted = nums;
+}
 
-vector<int> PmergeMe::sortVec(vector<int> nums) {
-	if (nums.size() <= 1) {
-		return nums;
+void PmergeMe::sortVec(vector<int> nums) {
+	if (nums.size() == 2) {
+		sortVecPair(nums);
+		return;
 	}
 	
 	size_t k = 0;
@@ -87,7 +66,6 @@ vector<int> PmergeMe::sortVec(vector<int> nums) {
 		sorted.push_back(jacobsthal(i));
 	}
 	
-	return sorted;
 }
 
 void PmergeMe::processVecPairs(vector<int> &nums, vector<int> &bigger, vector<int> &smaller) {
