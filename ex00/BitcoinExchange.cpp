@@ -2,6 +2,7 @@
 
 void r(const string &msg) {
 	cerr << "\033[1;31mERROR: " << msg << "\033[0m" << endl;
+	return void();
 }
 
 BitcoinExchange::~BitcoinExchange() {}
@@ -38,10 +39,8 @@ void BitcoinExchange::run(const string &inputFile) {
 	ifstream file(inputFile.c_str());
 	string line;
 
-	if (!file.is_open()) {
-		r("could not open file.");
-		return;
-	}
+	if (!file.is_open())
+		throw runtime_error("could not open the file.");
 
 	getline(file, line); // skip header
 	while (getline(file, line))
@@ -104,7 +103,7 @@ bool BitcoinExchange::isValidDate(const string &date) {
 bool BitcoinExchange::isValidVal(const string &valStr, float &val) {
 	char *end;
 	val = strtof(valStr.c_str(), &end);
-	
+
 	if (val < 0) {
 		r("not a positive number.");
 		return false;
