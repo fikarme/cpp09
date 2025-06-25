@@ -11,8 +11,14 @@ int main(int ac, char **av) {
 		BitcoinExchange btc;
 		btc.run(av[1]);
 	}
-	catch (const exception &e) { r(e.what());}
-	catch (...) { r("an unknown error occurred.");}
+	catch (const exception &e) {
+		r(e.what());
+		return 1;
+	}
+	catch (...) {
+		r("an unknown error occurred.");
+		return 1;
+	}
 
 	return 0;
 }

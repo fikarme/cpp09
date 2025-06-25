@@ -2,15 +2,10 @@
 
 void r(const string &msg) {
 	cerr << "\033[1;31mERROR: " << msg << "\033[0m" << endl;
-	return void();
 }
 
 BitcoinExchange::~BitcoinExchange() {}
-
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &cpy) {
-	*this = cpy;
-}
-
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &cpy) { *this = cpy; }
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs) {
 	if (this != &rhs)
 		this->_db = rhs._db;

@@ -9,15 +9,15 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &rhs) {
 		_deq = rhs._deq;
 		_timeVec = rhs._timeVec;
 		_timeDeq = rhs._timeDeq;
-	}
+		}
 	return *this;
-}
+	}
 
 size_t PmergeMe::jacobsthal(int k) {
 	if (k < 0)
 		return 0;
 	return ((1 << (k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3;
-}
+	}
 
 void PmergeMe::addArgs(int ac, char **av) {
 	for (int i = 1; i < ac; ++i) {
@@ -25,7 +25,7 @@ void PmergeMe::addArgs(int ac, char **av) {
 		_vec.push_back(num);
 		_deq.push_back(num);
 		}
-}
+	}
 
 void PmergeMe::sort() {
 	clock_t vecStart = clock();
@@ -38,14 +38,14 @@ void PmergeMe::sort() {
 	clock_t deqEnd = clock();
 	_timeDeq = (deqEnd - deqStart) * 1000.0 / CLOCKS_PER_SEC;
 	}
-// ...existing code...
+
 void PmergeMe::sortVec(vector<int> nums) {
 	// Base case: a list of 0 or 1 is already sorted
 	if (nums.size() < 2)
 		{
 		_vecSorted = nums;
 		return;
-	}
+		}
 
 	// --- 1 Handle Straggler & Pair Up ---
 	int straggler = -1;
@@ -54,7 +54,7 @@ void PmergeMe::sortVec(vector<int> nums) {
 		{
 		straggler = nums.back();
 		nums.pop_back();
-	}
+		}
 
 	vector<int> mainChain, pend;
 	for (size_t i = 0; i < nums.size(); i += 2)
@@ -67,7 +67,7 @@ void PmergeMe::sortVec(vector<int> nums) {
 			{
 			mainChain.push_back(nums[i + 1]);
 			pend.push_back(nums[i]);
-		}
+			}
 
 	// --- 2. Recursively Sort the Main Chain ---
 	sortVec(mainChain);
@@ -89,14 +89,14 @@ void PmergeMe::sortVec(vector<int> nums) {
 		if (jacob == pend.size())
 			break;
 		last_jacob = jacob;
-	}
+		}
 
 	for (size_t i = 0; i < jacob_indices.size(); ++i)
 		{
 		int val = pend[jacob_indices[i]];
 		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), val);
 		sortedChain.insert(it, val);
-	}
+		}
 
 	// --- 4. Insert the Straggler ---
 	if (hasStraggler)
@@ -106,11 +106,11 @@ void PmergeMe::sortVec(vector<int> nums) {
 
 			lower_bound(sortedChain.begin(), sortedChain.end(), straggler);
 		sortedChain.insert(it, straggler);
-	}
+		}
 
 	// --- 5. Finalize ---
 	_vecSorted = sortedChain;
-}
+	}
 
 // This function is now obsolete, its logic is inside sortVec.
 void PmergeMe::processVecPairs(vector<int> &/*nums*/, vector<int> &/*mainChain*/, vector<int> &/*pend*/) {}
