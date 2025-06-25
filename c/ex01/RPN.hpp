@@ -7,19 +7,19 @@
 
 class RPN {
 private:
-    std::stack<int> _numbers;
+	std::stack<int> _numbers;
 
 public:
-    RPN();
-    RPN(const RPN &copy);
-    RPN &operator=(const RPN &copy);
-    ~RPN();
+	RPN();
+	RPN(const RPN &copy);
+	RPN &operator=(const RPN &copy);
+	~RPN();
 
-    int calculate(const std::string &expression);
+	int calculate(const std::string &expression);
 
 private:
-    bool isOperator(char c) const;
-    void performOperation(char op);
-};
+	bool isOperator(char c) const;
+	void performOperation(char op);
+	};
 
 #endif

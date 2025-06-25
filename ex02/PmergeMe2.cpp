@@ -1,13 +1,8 @@
 #include "PmergeMe.hpp"
 
 PmergeMe::~PmergeMe() {}
-
 PmergeMe::PmergeMe() {}
-
-PmergeMe::PmergeMe(const PmergeMe &cpy) {
-	*this = cpy;
-}
-
+PmergeMe::PmergeMe(const PmergeMe &cpy) { *this = cpy; }
 PmergeMe &PmergeMe::operator=(const PmergeMe &rhs) {
 	if (this != &rhs) {
 		_vec = rhs._vec;
@@ -24,12 +19,12 @@ size_t PmergeMe::jacobsthal(int k) {
 	return ((1 << (k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3;
 }
 
-void PmergeMe::addArgs(int ac ,char **av) {
+void PmergeMe::addArgs(int ac, char **av) {
 	for (int i = 1; i < ac; ++i) {
 		int num = atoi(av[i]);
 		_vec.push_back(num);
 		_deq.push_back(num);
-	}
+		}
 }
 
 void PmergeMe::sort() {
@@ -42,76 +37,79 @@ void PmergeMe::sort() {
 	// _deqSorted = sortDeq(_deq);
 	clock_t deqEnd = clock();
 	_timeDeq = (deqEnd - deqStart) * 1000.0 / CLOCKS_PER_SEC;
-}
+	}
 // ...existing code...
 void PmergeMe::sortVec(vector<int> nums) {
-    // Base case: a list of 0 or 1 is already sorted
-    if (nums.size() < 2)
-    {
-        _vecSorted = nums;
-        return;
-    }
+	// Base case: a list of 0 or 1 is already sorted
+	if (nums.size() < 2)
+		{
+		_vecSorted = nums;
+		return;
+	}
 
-    // --- 1 Handle Straggler & Pair Up ---
-    int straggler = -1;
-    bool hasStraggler = nums.size() % 2 != 0;
-    if (hasStraggler)
-    {
-        straggler = nums.back();
-        nums.pop_back();
-    }
+	// --- 1 Handle Straggler & Pair Up ---
+	int straggler = -1;
+	bool hasStraggler = nums.size() % 2 != 0;
+	if (hasStraggler)
+		{
+		straggler = nums.back();
+		nums.pop_back();
+	}
 
-    vector<int> mainChain, pend;
-    for (size_t i = 0; i < nums.size(); i += 2)
-        if (nums[i] > nums[i+1])
-        {
-            mainChain.push_back(nums[i]);
-            pend.push_back(nums[i+1]);
-        }
-        else
-        {
-            mainChain.push_back(nums[i+1]);
-            pend.push_back(nums[i]);
-        }
+	vector<int> mainChain, pend;
+	for (size_t i = 0; i < nums.size(); i += 2)
+		if (nums[i] > nums[i + 1])
+			{
+			mainChain.push_back(nums[i]);
+			pend.push_back(nums[i + 1]);
+			}
+		else
+			{
+			mainChain.push_back(nums[i + 1]);
+			pend.push_back(nums[i]);
+		}
 
-    // --- 2. Recursively Sort the Main Chain ---
-    sortVec(mainChain);
-    vector<int> sortedChain = _vecSorted;
+	// --- 2. Recursively Sort the Main Chain ---
+	sortVec(mainChain);
+	vector<int> sortedChain = _vecSorted;
 
-    // --- 3. Insert Pending Elements with Jacobsthal Sequence ---
-    if (!pend.empty())
-        sortedChain.insert(sortedChain.begin(), pend[0]);
+	// --- 3. Insert Pending Elements with Jacobsthal Sequence ---
+	if (!pend.empty())
+		sortedChain.insert(sortedChain.begin(), pend[0]);
 
-    vector<size_t> jacob_indices;
-    size_t last_jacob = 1;
-    for (int k = 2; ; ++k)
-    {
-        size_t jacob = jacobsthal(k);
-        if (jacob > pend.size())
-            jacob = pend.size();
-        for (size_t i = jacob; i > last_jacob; --i)
-            jacob_indices.push_back(i - 1);
-        if (jacob == pend.size())
-            break;
-        last_jacob = jacob;
-    }
+	vector<size_t> jacob_indices;
+	size_t last_jacob = 1;
+	for (int k = 2; ; ++k)
+		{
+		size_t jacob = jacobsthal(k);
+		if (jacob > pend.size())
+			jacob = pend.size();
+		for (size_t i = jacob; i > last_jacob; --i)
+			jacob_indices.push_back(i - 1);
+		if (jacob == pend.size())
+			break;
+		last_jacob = jacob;
+	}
 
-    for (size_t i = 0; i < jacob_indices.size(); ++i)
-    {
-        int val = pend[jacob_indices[i]];
-        vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), val);
-        sortedChain.insert(it, val);
-    }
+	for (size_t i = 0; i < jacob_indices.size(); ++i)
+		{
+		int val = pend[jacob_indices[i]];
+		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), val);
+		sortedChain.insert(it, val);
+	}
 
-    // --- 4. Insert the Straggler ---
-    if (hasStraggler)
-    {
-        vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), straggler);
-        sortedChain.insert(it, straggler);
-    }
+	// --- 4. Insert the Straggler ---
+	if (hasStraggler)
+		{
+		vector<int>::iterator it =
 
-    // --- 5. Finalize ---
-    _vecSorted = sortedChain;
+
+			lower_bound(sortedChain.begin(), sortedChain.end(), straggler);
+		sortedChain.insert(it, straggler);
+	}
+
+	// --- 5. Finalize ---
+	_vecSorted = sortedChain;
 }
 
 // This function is now obsolete, its logic is inside sortVec.

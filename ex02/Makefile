@@ -3,7 +3,7 @@ CPP			= c++
 CPPFLAGS	= -std=c++98 -Wall -Wextra -Werror
 RM			= rm -rf
 OBJ			= $(SRCS:.cpp=.o)
-SRCS		= main.cpp 2.cpp
+SRCS		= main.cpp PmergeMe.cpp
 
 all: $(NAME)
 

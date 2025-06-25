@@ -3,15 +3,15 @@
 // }
 
 // size_t PmergeMe::jacobsthal(int k) {
-//     if (k < 0)
+//	 if (k < 0)
 // 		return 0;
-//     return (static_cast<size_t>(pow(2, k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3;
+//	 return (static_cast<size_t>(pow(2, k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3;
 // }
 
 // size_t PmergeMe::jacobsthal(int k) {
-//     if (k < 0)
-//         return 0;
-//     return ((1 << (k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3;
+//	 if (k < 0)
+//		 return 0;
+//	 return ((1 << (k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3;
 // }
 
 // void PmergeMe::sortVecPair(vector<int> nums) {
@@ -51,17 +51,17 @@
 // 		sortVecPair(nums);
 // 		return;
 // 	}
-	
+
 // 	size_t k = 0;
 // 	while (jacobsthal(k) < nums.size()) {
 // 		++k;
 // 	}
-	
+
 // 	vector<int> sorted;
 // 	for (size_t i = 0; i < k; ++i) {
 // 		sorted.push_back(jacobsthal(i));
 // 	}
-	
+
 // }
 
 // void PmergeMe::processVecPairs(vector<int> &nums, vector<int> &bigger, vector<int> &smaller) {

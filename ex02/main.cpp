@@ -43,10 +43,9 @@ bool isNegative(int ac, char **av) {
 }
 
 int main(int ac, char **av) {
-
 	if (ac < 3)
 		return r("positive integer sequence as an arg req");
-	
+
 	if (ac > 3001)
 		return r("too many arg");
 
@@ -58,10 +57,10 @@ int main(int ac, char **av) {
 
 	if (isSorted(ac, av))
 		return r("already sorted");
-	
+
 	if (isDuplicated(ac, av))
 		return r("duplicated arg");
-		
+
 	PmergeMe PmergeMe;
 	try
 	{
@@ -69,26 +68,26 @@ int main(int ac, char **av) {
 		PmergeMe.sort();
 	}
 	catch (const std::runtime_error &e) { return r(e.what()); }
-	
+
 	cout << "Before: ";
 	for (int i = 1; i < ac; ++i)
 		cout << av[i] << " ";
 	cout << endl;
-	
+
 	cout << "VEC After: ";
 	for (int i = 0; i < ac - 1; ++i)
 		cout << PmergeMe._vecSorted[i] << " ";
 	cout << endl;
-	
+
 	cout << "DEQ After: ";
 	for (int i = 0; i < ac - 1; ++i)
 		cout << PmergeMe._deqSorted[i] << " ";
 	cout << endl;
-	
+
 	cout << "Time to process a range of " << ac - 1
 		 << " elements with std::vector: "<< PmergeMe._timeVec
 		 << " us" << endl;
-		 
+
 	cout << "Time to process a range of " << ac - 1
 		 << " elements with std::deque: " << PmergeMe._timeDeq
 		 << " us" << endl;
@@ -96,15 +95,15 @@ int main(int ac, char **av) {
 	// cout << "Time difference: "
 	// 	 << fabs(PmergeMe._timeVec - PmergeMe._timeDeq)
 	// 	 << " us" << endl;
-		 
+
 	// cout << "Ratio: "
 	// 	 << (PmergeMe._timeVec / PmergeMe._timeDeq)
 	// 	 << endl;
-		 
+
 	// cout << "Jacobsthal: "
 	// 	 << PmergeMe.jacobsthal(13) // Example usage, can be adjusted
 	// 	 << endl;
-		 
+
 	cout << endl;
 	return 0;
 }
