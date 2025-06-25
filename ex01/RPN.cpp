@@ -21,24 +21,22 @@ RPN &RPN::operator=(const RPN &rhs) {
 int RPN::calculate(const string &expr) {
 	for (size_t i = 0; i < expr.length(); i++) {
 		char c = expr[i];
-		
-		if (isspace(c))
+
+		if (c == ' ')
 			continue;
 		if (isdigit(c))
 			_nbrs.push(c - '0');
-		else if (c == '+' || c == '-' || c == '*' || c == '/') {
-			if (_nbrs.size() < 2) {
-				r("Not enough operands for operation");
+		if (c == '+' || c == '-' || c == '*' || c == '/') {
+			if (i < 4)
 				throw runtime_error("Not enough operands for operation");
-			}
+			if (c == '/' && _nbrs.top() == 0)
+				throw runtime_error("division by zero");
 			applyOp(c);
 		}
 	}
 
-	if (_nbrs.size() != 1) {
-		r("---The expression is not valid");
-		throw runtime_error("The expression is not valid");
-	}
+	if (_nbrs.size() != 1)
+		throw runtime_error("the expression is not valid");
 	
 	return _nbrs.top();
 }
@@ -62,14 +60,7 @@ void RPN::applyOp(char op) {
 		_nbrs.push(a * b);
 		break;
 	case '/':
-		if (b == 0) {
-			r("Division by zero");
-			throw runtime_error("Division by zero");
-		}
 		_nbrs.push(a / b);
 		break;
-	default:
-		r("Unknown operator");
-		throw runtime_error("Unknown operator");
 	}
 }
