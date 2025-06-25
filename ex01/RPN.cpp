@@ -28,9 +28,9 @@ int RPN::calculate(const string &expr) {
 			_nbrs.push(c - '0');
 		if (c == '+' || c == '-' || c == '*' || c == '/') {
 			if (i < 4)
-				throw runtime_error("Not enough operands for operation");
+				throw runtime_error("not enough operands for operation");
 			if (c == '/' && _nbrs.top() == 0)
-				throw runtime_error("division by zero");
+				throw runtime_error("unidentified (division by zero)");
 			applyOp(c);
 		}
 	}

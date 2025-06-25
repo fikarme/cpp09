@@ -14,8 +14,6 @@
 using std::cerr;
 using std::cout;
 using std::endl;
-using std::ifstream;
-using std::map;
 using std::string;
 using std::exception;
 using std::runtime_error;
