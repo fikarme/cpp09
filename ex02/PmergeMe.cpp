@@ -27,6 +27,8 @@ void PmergeMe::addArgs(int ac, char **av) {
 	}
 }
 
+// addlemenin de clockunu tut ayrı ayrı
+
 void PmergeMe::sort() {
 	clock_t vecStart = clock();
 	sortVec(_vec);

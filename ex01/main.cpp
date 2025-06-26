@@ -6,10 +6,10 @@ void r(const string &msg) {
 
 int main(int ac, char **av) {
 	if (ac != 2) {
-		r("Error");
+		r("need an Polish mathematical expression as an argument");
 		return 1;
 	}
-	
+
 	try
 	{
 		RPN rpn;
