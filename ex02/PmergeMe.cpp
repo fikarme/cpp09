@@ -19,23 +19,22 @@ size_t PmergeMe::jacobsthal(int k) {
 	return ((1 << (k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3;
 }
 
-void PmergeMe::addArgs(int ac, char **av) {
+void PmergeMe::sort(int ac, char **av) {
+
+	clock_t vecStart = clock();
 	for (int i = 1; i < ac; ++i) {
 		int num = atoi(av[i]);
 		_vec.push_back(num);
-		_deq.push_back(num);
 	}
-}
-
-// addlemenin de clockunu tut ayrı ayrı
-
-void PmergeMe::sort() {
-	clock_t vecStart = clock();
 	sortVec(_vec);
 	clock_t vecEnd = clock();
 	_timeVec = (vecEnd - vecStart) * 1000.0 / CLOCKS_PER_SEC;
 
 	clock_t deqStart = clock();
+	for (int i = 1; i < ac; ++i) {
+		int num = atoi(av[i]);
+		_deq.push_back(num);
+	}
 	sortDeq(_deq);
 	clock_t deqEnd = clock();
 	_timeDeq = (deqEnd - deqStart) * 1000.0 / CLOCKS_PER_SEC;

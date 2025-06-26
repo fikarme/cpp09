@@ -43,18 +43,9 @@ public:
 	deque<int> _deqSorted;
 
 	size_t jacobsthal(int k);
-	void addArgs(int ac, char **av);
-	void sort();
-
+	void sort(int ac, char **av);
 	void sortVec(vector<int> nums);
-
 	void sortDeq(deque<int> nums);
-
-
-	// static deque<int> sortDeqPair(deque<int> nums);
-	// static void processDeqPairs(deque<int> &nums, deque<int> &bigger, deque<int> &smaller);
-	// static deque<int> sortDeq(deque<int> nums);
-
 
 private:
 };

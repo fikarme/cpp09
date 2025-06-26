@@ -64,10 +64,12 @@ int main(int ac, char **av) {
 	PmergeMe PmergeMe;
 	try
 	{
-		PmergeMe.addArgs(ac, av);
-		PmergeMe.sort();
+		PmergeMe.sort(ac, av);
 	}
-	catch (const std::runtime_error &e) { return r(e.what()); }
+	catch (const runtime_error &e)
+	{
+		return r(e.what());
+	}
 
 	cout << "Before: ";
 	for (int i = 1; i < ac; ++i)
@@ -92,17 +94,11 @@ int main(int ac, char **av) {
 		 << " elements with std::deque: " << PmergeMe._timeDeq
 		 << " us" << endl;
 
-	// cout << "Time difference: "
-	// 	 << fabs(PmergeMe._timeVec - PmergeMe._timeDeq)
-	// 	 << " us" << endl;
+	cout << "Time difference: "
+		 << fabs(PmergeMe._timeVec - PmergeMe._timeDeq)
+		 << " us" << endl;
 
-	// cout << "Ratio: "
-	// 	 << (PmergeMe._timeVec / PmergeMe._timeDeq)
-	// 	 << endl;
-
-	// cout << "Jacobsthal: "
-	// 	 << PmergeMe.jacobsthal(13) // Example usage, can be adjusted
-	// 	 << endl;
+	cout << "Which is faster: "
 
 	cout << endl;
 	return 0;
