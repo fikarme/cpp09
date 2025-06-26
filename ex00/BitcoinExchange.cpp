@@ -37,7 +37,7 @@ void BitcoinExchange::run(const string &inputFile) {
 	if (!file.is_open())
 		throw runtime_error("could not open the file.");
 
-	getline(file, line); // skip header
+	getline(file, line);
 	while (getline(file, line))
 		processLine(line);
 }
@@ -70,7 +70,7 @@ void BitcoinExchange::processLine(const string &line) {
 			r("no data for or before this date.");
 			return;
 		}
-		--it; // to get the closest lower date
+		--it;
 	}
 
 	cout << date << " => " << val << " = " << val * it->second << endl;

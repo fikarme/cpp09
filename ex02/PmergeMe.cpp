@@ -109,16 +109,16 @@ void PmergeMe::sortVec(vector<int> nums) {
 		sortedChain.insert(sortedChain.begin(), pend[0]);
 
 	vector<size_t> jacob_indices;
-	size_t last_jacob = 1;
+	size_t lastJacob = 1;
 	for (int k = 2; ; ++k) {
 		size_t jacob = jacobsthal(k);
 		if (jacob > pend.size())
 			jacob = pend.size();
-		for (size_t i = jacob; i > last_jacob; --i)
+		for (size_t i = jacob; i > lastJacob; --i)
 			jacob_indices.push_back(i - 1);
 		if (jacob == pend.size())
 			break;
-		last_jacob = jacob;
+		lastJacob = jacob;
 	}
 
 	for (size_t i = 0; i < jacob_indices.size(); ++i) {
@@ -166,16 +166,16 @@ void PmergeMe::sortDeq(deque<int> nums) {
 		sortedChain.insert(sortedChain.begin(), pend[0]);
 
 	deque<size_t> jacob_indices;
-	size_t last_jacob = 1;
+	size_t lastJacob = 1;
 	for (int k = 2; ; ++k) {
 		size_t jacob = jacobsthal(k);
 		if (jacob > pend.size())
 			jacob = pend.size();
-		for (size_t i = jacob; i > last_jacob; --i)
+		for (size_t i = jacob; i > lastJacob; --i)
 			jacob_indices.push_back(i - 1);
 		if (jacob == pend.size())
 			break;
-		last_jacob = jacob;
+		lastJacob = jacob;
 	}
 
 	for (size_t i = 0; i < jacob_indices.size(); ++i) {
@@ -191,23 +191,3 @@ void PmergeMe::sortDeq(deque<int> nums) {
 
 	_deqSorted = sortedChain;
 }
-
-// Aight, bet. Your current implementation is a good start
-// but it's taking some major Ls on performance and isn't the full-fat Ford-Johnson algorithm
-// The way you're creating an extra pairs vector is a resource L
-// and the linear insertion of the pend elements is not the optimal vibe the subject demands.
-
-// Let's give these functions a serious glow-up
-// I've refactored them to be more efficient and to use the Jacobsthal insertion sequence
-// which is the secret sauce of this algorithm.
-
-// The Glow-Up
-// This improved version of sortVec now uses the Jacobsthal sequence to minimize comparisons
-// which is the whole point of the Ford-Johnson algorithm
-// The processVecPairs logic is also rolled directly into sortVec to avoid creating an unnecessary intermediate vector
-// saving memory and time.
-
-// I'm keeping your function signatures and the use of the _vecSorted member variable as you asked
-// but know this: passing the vector by value (vector<int> nums) on every recursive call is a huge performance bottleneck
-// For a true 42-pilled solution
-// you'd want to sort in-place by passing a reference (vector<int>& nums).

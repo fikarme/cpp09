@@ -52,14 +52,7 @@ int main(int ac, char **av) {
 		return r("duplicated arg");
 
 	PmergeMe PmergeMe;
-	try
-	{
-		PmergeMe.sort(ac, av);
-	}
-	catch (const runtime_error &e)
-	{
-		return r(e.what());
-	}
+	PmergeMe.sort(ac, av);
 
 	return 0;
 }

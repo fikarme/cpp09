@@ -1,3 +1,24 @@
+// Aight, bet. Your current implementation is a good start
+// but it's taking some major Ls on performance and isn't the full-fat Ford-Johnson algorithm
+// The way you're creating an extra pairs vector is a resource L
+// and the linear insertion of the pend elements is not the optimal vibe the subject demands.
+
+// Let's give these functions a serious glow-up
+// I've refactored them to be more efficient and to use the Jacobsthal insertion sequence
+// which is the secret sauce of this algorithm.
+
+// The Glow-Up
+// This improved version of sortVec now uses the Jacobsthal sequence to minimize comparisons
+// which is the whole point of the Ford-Johnson algorithm
+// The processVecPairs logic is also rolled directly into sortVec to avoid creating an unnecessary intermediate vector
+// saving memory and time.
+
+// I'm keeping your function signatures and the use of the _vecSorted member variable as you asked
+// but know this: passing the vector by value (vector<int> nums) on every recursive call is a huge performance bottleneck
+// For a true 42-pilled solution
+// you'd want to sort in-place by passing a reference (vector<int>& nums).
+
+
 1.  `shuf -i 1-42 -n 31`
 	*   `shuf`: The shuffle command. It randomizes lines of input.
 	*   `-i 1-42`: This is the `--input-range` flag. It tells `shuf` to generate its own input: the numbers from 1 to 42.

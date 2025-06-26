@@ -23,7 +23,7 @@ int RPN::calculate(const string &expr) {
 		if (isdigit(c))
 			_nbrs.push(c - '0');
 		if (c == '+' || c == '-' || c == '*' || c == '/') {
-			if (i < 4) //not robust check stack size == 2
+			if (i < 4)
 				throw runtime_error("not enough operands for operation");
 			if (c == '/' && _nbrs.top() == 0)
 				throw runtime_error("unidentified (division by zero)");
