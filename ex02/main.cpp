@@ -39,7 +39,7 @@ int main(int ac, char **av) {
 	if (ac < 3)
 		return r("positive integer sequence as an arg req");
 
-	if (ac > 3001)
+	if (ac > 3003)
 		return r("too many arg");
 
 	if (!isValidArg(ac, av))
