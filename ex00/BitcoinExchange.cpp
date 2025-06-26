@@ -38,6 +38,9 @@ void BitcoinExchange::run(const string &inputFile) {
 		throw runtime_error("could not open the file.");
 
 	getline(file, line);
+	if ("date | value\n" == line)
+		throw runtime_error("wrong input format");
+
 	while (getline(file, line))
 		processLine(line);
 }
