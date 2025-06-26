@@ -15,6 +15,41 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &rhs) {
 	return *this;
 }
 
+void PmergeMe::printRes(int ac, char **av) const {
+	cout << "Before:    ";
+	for (int i = 1; i < ac; ++i)
+		cout << av[i] << " ";
+	cout << endl;
+
+	cout << "VEC After: ";
+	for (int i = 0; i < ac - 1; ++i)
+		cout << _vecSorted[i] << " ";
+	cout << endl;
+
+	cout << "DEQ After: ";
+	for (int i = 0; i < ac - 1; ++i)
+		cout << _deqSorted[i] << " ";
+	cout << endl;
+
+	cout << "Time to process a range of " << ac - 1
+		 << " elements with std::vector: "<< _timeVec
+		 << " us" << endl;
+
+	cout << "Time to process a range of " << ac - 1
+		 << " elements with std::deque:  " << _timeDeq
+		 << " us" << endl;
+
+	cout << "Time difference: "
+		 << (_timeVec - _timeDeq)
+		 << " us" << endl;
+
+	cout << "The faster one: "
+		 << (_timeVec < _timeDeq ? "std::vector" : "std::deque")
+		 << endl;
+
+	cout << endl;
+}
+
 size_t PmergeMe::jacobsthal(int k) {
 	if (k < 0)
 		return 0;
@@ -22,7 +57,6 @@ size_t PmergeMe::jacobsthal(int k) {
 }
 
 void PmergeMe::sort(int ac, char **av) {
-
 	clock_t vecStart = clock();
 	for (int i = 1; i < ac; ++i) {
 		int num = atoi(av[i]);
@@ -40,6 +74,8 @@ void PmergeMe::sort(int ac, char **av) {
 	sortDeq(_deq);
 	clock_t deqEnd = clock();
 	_timeDeq = (deqEnd - deqStart) * 1000.0 / CLOCKS_PER_SEC;
+
+	printRes(ac, av);
 }
 
 void PmergeMe::sortVec(vector<int> nums) {

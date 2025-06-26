@@ -16,12 +16,9 @@ using std::deque;
 using std::runtime_error;
 #include <stdlib.h>
 using std::atoi;
-#include <cmath>
-using std::pow;
 #include <ctime>
 using std::clock;
 #include <algorithm>
-using std::swap;
 using std::lower_bound;
 
 class PmergeMe {
@@ -34,9 +31,9 @@ private:
 	deque<int> _deqSorted;
 
 	size_t jacobsthal(int k);
-	void sort(int ac, char **av);
 	void sortVec(vector<int> nums);
 	void sortDeq(deque<int> nums);
+	void printRes(int ac, char **av) const;
 
 public:
 	~PmergeMe();
@@ -44,6 +41,7 @@ public:
 	PmergeMe(const PmergeMe &cpy);
 	PmergeMe &operator=(const PmergeMe &rhs);
 
+	void sort(int ac, char **av);
 };
 
 #endif

@@ -17,13 +17,6 @@ bool isValidArg(int ac, char **av) {
 	return true;
 }
 
-bool isSorted(int ac, char **av) {
-	for (int i = 1; i < ac - 1; ++i)
-		if (atoi(av[i]) > atoi(av[i + 1]))
-			return false;
-	return true;
-}
-
 bool isDuplicated(int ac, char **av) {
 	for (int i = 1; i < ac - 1; ++i) {
 		for (int j = i + 1; j < ac; ++j) {
@@ -55,9 +48,6 @@ int main(int ac, char **av) {
 	if (isNegative(ac, av))
 		return r("negative arg");
 
-	if (isSorted(ac, av))
-		return r("already sorted");
-
 	if (isDuplicated(ac, av))
 		return r("duplicated arg");
 
@@ -71,37 +61,5 @@ int main(int ac, char **av) {
 		return r(e.what());
 	}
 
-	cout << "Before: ";
-	for (int i = 1; i < ac; ++i)
-		cout << av[i] << " ";
-	cout << endl;
-
-	cout << "VEC After: ";
-	for (int i = 0; i < ac - 1; ++i)
-		cout << PmergeMe._vecSorted[i] << " ";
-	cout << endl;
-
-	cout << "DEQ After: ";
-	for (int i = 0; i < ac - 1; ++i)
-		cout << PmergeMe._deqSorted[i] << " ";
-	cout << endl;
-
-	cout << "Time to process a range of " << ac - 1
-		 << " elements with std::vector: "<< PmergeMe._timeVec
-		 << " us" << endl;
-
-	cout << "Time to process a range of " << ac - 1
-		 << " elements with std::deque: " << PmergeMe._timeDeq
-		 << " us" << endl;
-
-	cout << "Time difference: "
-		 << fabs(PmergeMe._timeVec - PmergeMe._timeDeq)
-		 << " us" << endl;
-
-	cout << "Which is faster: "
-		 << (PmergeMe._timeVec < PmergeMe._timeDeq ? "std::vector" : "std::deque")
-		 << endl;
-
-	cout << endl;
 	return 0;
 }
