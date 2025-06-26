@@ -99,6 +99,8 @@ int main(int ac, char **av) {
 		 << " us" << endl;
 
 	cout << "Which is faster: "
+		 << (PmergeMe._timeVec < PmergeMe._timeDeq ? "std::vector" : "std::deque")
+		 << endl;
 
 	cout << endl;
 	return 0;

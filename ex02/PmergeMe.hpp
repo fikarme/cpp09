@@ -23,18 +23,9 @@ using std::clock;
 #include <algorithm>
 using std::swap;
 using std::lower_bound;
-#include <utility>
-using std::pair;
-using std::make_pair;
-
 
 class PmergeMe {
-public:
-	~PmergeMe();
-	PmergeMe();
-	PmergeMe(const PmergeMe &cpy);
-	PmergeMe &operator=(const PmergeMe &rhs);
-
+private:
 	double _timeVec;
 	double _timeDeq;
 	vector<int> _vec;
@@ -47,10 +38,12 @@ public:
 	void sortVec(vector<int> nums);
 	void sortDeq(deque<int> nums);
 
-private:
+public:
+	~PmergeMe();
+	PmergeMe();
+	PmergeMe(const PmergeMe &cpy);
+	PmergeMe &operator=(const PmergeMe &rhs);
+
 };
 
 #endif
-
-
-//public ayarı

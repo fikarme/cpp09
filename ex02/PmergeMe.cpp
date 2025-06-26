@@ -9,6 +9,8 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &rhs) {
 		_deq = rhs._deq;
 		_timeVec = rhs._timeVec;
 		_timeDeq = rhs._timeDeq;
+		_vecSorted = rhs._vecSorted;
+		_deqSorted = rhs._deqSorted;
 	}
 	return *this;
 }
@@ -41,13 +43,11 @@ void PmergeMe::sort(int ac, char **av) {
 }
 
 void PmergeMe::sortVec(vector<int> nums) {
-	// Base case: a list of 0 or 1 is already sorted
 	if (nums.size() < 2) {
 		_vecSorted = nums;
 		return;
 	}
 
-	// --- 1 Handle Straggler & Pair Up ---
 	int straggler = -1;
 	bool hasStraggler = nums.size() % 2 != 0;
 	if (hasStraggler) {
@@ -66,11 +66,9 @@ void PmergeMe::sortVec(vector<int> nums) {
 			pend.push_back(nums[i]);
 		}
 
-	// --- 2. Recursively Sort the Main Chain ---
 	sortVec(mainChain);
 	vector<int> sortedChain = _vecSorted;
 
-	// --- 3. Insert Pending Elements with Jacobsthal Sequence ---
 	if (!pend.empty())
 		sortedChain.insert(sortedChain.begin(), pend[0]);
 
@@ -93,7 +91,6 @@ void PmergeMe::sortVec(vector<int> nums) {
 		sortedChain.insert(it, val);
 	}
 
-	// --- 4. Insert the Straggler ---
 	if (hasStraggler) {
 		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), straggler);
 		sortedChain.insert(it, straggler);
@@ -103,13 +100,11 @@ void PmergeMe::sortVec(vector<int> nums) {
 }
 
 void PmergeMe::sortDeq(deque<int> nums) {
-	// Base case: a list of 0 or 1 is already sorted
 	if (nums.size() < 2) {
 		_deqSorted = nums;
 		return;
 	}
 
-	// --- 1 Handle Straggler & Pair Up ---
 	int straggler = -1;
 	bool hasStraggler = nums.size() % 2 != 0;
 	if (hasStraggler) {
@@ -128,11 +123,9 @@ void PmergeMe::sortDeq(deque<int> nums) {
 			pend.push_back(nums[i]);
 		}
 
-	// --- 2. Recursively Sort the Main Chain ---
 	sortDeq(mainChain);
 	deque<int> sortedChain = _deqSorted;
 
-	// --- 3. Insert Pending Elements with Jacobsthal Sequence ---
 	if (!pend.empty())
 		sortedChain.insert(sortedChain.begin(), pend[0]);
 
@@ -155,7 +148,6 @@ void PmergeMe::sortDeq(deque<int> nums) {
 		sortedChain.insert(it, val);
 	}
 
-	// --- 4. Insert the Straggler ---
 	if (hasStraggler) {
 		deque<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), straggler);
 		sortedChain.insert(it, straggler);
