@@ -20,9 +20,12 @@ int RPN::calculate(const string &expr) {
 
 		if (c == ' ')
 			continue;
-		if (isdigit(c))
+		if (expr[i+1])
+			if (expr[i+1] != ' ')
+				throw runtime_error("must be a space after ops");
+		if (c >= '0' && c <= '9')
 			_nbrs.push(c - '0');
-		if (c == '+' || c == '-' || c == '*' || c == '/') {
+		else if (c == '+' || c == '-' || c == '*' || c == '/') {
 			if (i < 4)
 				throw runtime_error("not enough operands for operation");
 			if (c == '/' && _nbrs.top() == 0)
@@ -30,9 +33,6 @@ int RPN::calculate(const string &expr) {
 			applyOp(c);
 		}
 	}
-
-	if (_nbrs.size() != 1)
-		throw runtime_error("the expression is not valid");
 
 	return _nbrs.top();
 }

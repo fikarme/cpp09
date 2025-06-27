@@ -64,7 +64,7 @@ void PmergeMe::sort(int ac, char **av) {
 	}
 	sortVec(_vec);
 	clock_t vecEnd = clock();
-	_timeVec = (vecEnd - vecStart) * 1000.0 / CLOCKS_PER_SEC;
+	_timeVec = (vecEnd - vecStart) * 1000000.0 / CLOCKS_PER_SEC;
 
 	clock_t deqStart = clock();
 	for (int i = 1; i < ac; ++i) {
@@ -73,7 +73,7 @@ void PmergeMe::sort(int ac, char **av) {
 	}
 	sortDeq(_deq);
 	clock_t deqEnd = clock();
-	_timeDeq = (deqEnd - deqStart) * 1000.0 / CLOCKS_PER_SEC;
+	_timeDeq = (deqEnd - deqStart) * 1000000.0 / CLOCKS_PER_SEC;
 
 	printRes(ac, av);
 }
