@@ -26,27 +26,27 @@ void PmergeMe::printRes(int ac, char **av) const {
 		cout << _vecSorted[i] << " ";
 	cout << endl;
 
-	cout << "DEQ After: ";
-	for (int i = 0; i < ac - 1; ++i)
-		cout << _deqSorted[i] << " ";
-	cout << endl;
+	// cout << "DEQ After: ";
+	// for (int i = 0; i < ac - 1; ++i)
+	// 	cout << _deqSorted[i] << " ";
+	// cout << endl;
 
-	cout << fixed << setprecision(7)
-	<< "Time to process a range of " << ac - 1
-	<< " elements with std::vector: "<< _timeVec
-	<< " seconds" << endl
+	// cout << fixed << setprecision(7)
+	// << "Time to process a range of " << ac - 1
+	// << " elements with std::vector: "<< _timeVec
+	// << " seconds" << endl
 
-	<< "Time to process a range of " << ac - 1
-	<< " elements with std::deque:  "<< _timeDeq
-	<< " seconds" << endl
+	// << "Time to process a range of " << ac - 1
+	// << " elements with std::deque:  "<< _timeDeq
+	// << " seconds" << endl
 
-	<< "Time difference: "
-	<< (_timeVec - _timeDeq)
-	<< " seconds" << endl
+	// << "Time difference: "
+	// << (_timeVec - _timeDeq)
+	// << " seconds" << endl
 
-	<< "The faster one:  "
-	<< (_timeVec < _timeDeq ? "std::vector" : "std::deque")
-	<< endl << endl;
+	// << "The faster one:  "
+	// << (_timeVec < _timeDeq ? "std::vector" : "std::deque")
+	// << endl << endl;
 }	//!!!	subject çıktısına göre düzenle
 
 inline size_t PmergeMe::jacobsthal(int k) {
@@ -64,23 +64,19 @@ inline size_t PmergeMe::jacobsthal(int k) {
 	}
 	return curr;
 	// return ((1 << (k)) - (k % 2 == 0 ? 1 : -1)) / 3;
-}	//	J(k) = (2^k - (-1)^k) / 3
+}	//	J(k) = (2^(k+1) + (-1)^k) / 3
 
 void PmergeMe::sort(int ac, char **av) {
 	clock_t vecStart = clock();
-	for (int i = 1; i < ac; ++i) {
-		int num = atoi(av[i]);
-		_vec.push_back(num);
-	}
+	for (int i = 1; i < ac; ++i)
+		_vec.push_back(atoi(av[i]));
 	sortVec(_vec);
 	clock_t vecEnd = clock();
 	_timeVec = static_cast<double>(vecEnd - vecStart) / CLOCKS_PER_SEC;
 
 	clock_t deqStart = clock();
-	for (int i = 1; i < ac; ++i) {
-		int num = atoi(av[i]);
-		_deq.push_back(num);
-	}
+	for (int i = 1; i < ac; ++i)
+		_deq.push_back(atoi(av[i]));
 	sortDeq(_deq);
 	clock_t deqEnd = clock();
 	_timeDeq = static_cast<double>(deqEnd - deqStart) / CLOCKS_PER_SEC;
@@ -119,10 +115,14 @@ void PmergeMe::sortVec(vector<int> nums) {
 		sortedChain.insert(sortedChain.begin(), pend[0]);
 
 	vector<size_t> jacobIndices;
+	//jacobIndices is a list of indices into pend that tells us
+	//the optimal order to insert them,
+	//based on the Jacobsthal sequence,
 	size_t lastJacob = 1;
 	int k = 2;
 	while (true) {
 		size_t jacob = jacobsthal(k);
+		cout <<  "k: " << k << " jacob: " << jacob << endl;
 		if (jacob > pend.size())
 			jacob = pend.size();
 		for (size_t i = jacob; i > lastJacob; --i)
