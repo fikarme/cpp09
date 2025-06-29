@@ -1,3 +1,11 @@
+
+
+https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
+
+4 elaman ile 7 arasında 3 recursiona giriyor
+j0 j1 j1 j3 j5 j11
+k0 k1 k2 k3 k4 k5
+
 ex00: Date and value parsing, mapping dates to values, finding closest date.
 ex01: Stack-based evaluation, token parsing, handling operators.
 ex02: Implementing and timing the Ford-Johnson algorithm with two different containers.

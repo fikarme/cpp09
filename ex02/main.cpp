@@ -43,5 +43,7 @@ int main(int ac, char **av) {
 	PmergeMe PmergeMe;
 	PmergeMe.sort(ac, av);
 
+	cout << "\n\033[1;31mMAIN ENDED\033[0m\n" << endl;
+
 	return 0;
 }

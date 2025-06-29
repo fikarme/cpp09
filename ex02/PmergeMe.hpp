@@ -35,7 +35,7 @@ private:
 	deque<int>	_deqSorted;
 
 	inline size_t jacobsthal(int k);
-	void sortVec(vector<int> nums);
+	void sortVec(vector<int> nums, size_t depth);
 	void sortDeq(deque<int> nums);
 	void printRes(int ac, char **av) const;
 
