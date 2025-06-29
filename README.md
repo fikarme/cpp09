@@ -2,9 +2,9 @@
 
 https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
 
-4 elaman ile 7 arasında 3 recursiona giriyor
-7 -> 3 -> 1
+3 -> 1
 4 -> 2 -> 1
+7 -> 3 -> 1
 8 -> 4 -> 2 -> 1
 j0 j1 j1 j3 j5 j11
 k0 k1 k2 k3 k4 k5

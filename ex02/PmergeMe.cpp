@@ -68,6 +68,7 @@ inline size_t PmergeMe::jacobsthal(int k) {
 }	//	J(k) = (2^(k+1) + (-1)^k) / 3
 
 void PmergeMe::sort(int ac, char **av) {
+	_comparisons = 0;
 	clock_t vecStart = clock();
 	for (int i = 1; i < ac; ++i)
 		_vec.push_back(atoi(av[i]));
@@ -120,10 +121,12 @@ void PmergeMe::sortVec(vector<int> nums, size_t depth) {
 		if (nums[i] > nums[i + 1]) {
 			mainChain.push_back(nums[i]);
 			pend.push_back(nums[i + 1]);
+			_comparisons++;
 		}
 		else {
 			mainChain.push_back(nums[i + 1]);
 			pend.push_back(nums[i]);
+			_comparisons++;
 		}
 
 	cout << indent << "mainChain: ";
@@ -161,17 +164,25 @@ void PmergeMe::sortVec(vector<int> nums, size_t depth) {
 	size_t lastJacob = 1;
 	int k = 2;
 	while (true) {
+		// Get the next Jacobsthal number
 		size_t jacob = jacobsthal(k);
 
 		cout << indent << "k: " << k << " jacob: " << jacob << endl;
 		cout << indent << "lastJacob: " << lastJacob << endl;
 
+		// Cap the index to the size of pend
 		if (jacob > pend.size())
 			jacob = pend.size();
+
+		// This is the main move: generate indices in reverse order
+		// from the current Jacobsthal number down to the last one.
 		for (size_t i = jacob; i > lastJacob; --i)
 			jacobIndices.push_back(i - 1);
+
+		// if we processed all elements in pend, we out.
 		if (jacob == pend.size())
 			break;
+
 		lastJacob = jacob;
 		++k;
 	}
@@ -183,8 +194,7 @@ void PmergeMe::sortVec(vector<int> nums, size_t depth) {
 
 	for (size_t i = 0; i < jacobIndices.size(); ++i) {
 		int val = pend[jacobIndices[i]];
-		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), val);
-
+		vector<int>::iterator it = lower_bound_count(sortedChain.begin(), sortedChain.end(), val);
 		cout << indent << "Inserting pend[" << jacobIndices[i] << "] = " << val << endl;
 		cout << indent << "val: " << val << endl;
 		cout << indent << "it: " << *it << endl;
@@ -199,7 +209,7 @@ void PmergeMe::sortVec(vector<int> nums, size_t depth) {
 	}	//	lowerbound önemi
 
 	if (hasStraggler) {
-		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), straggler);
+		vector<int>::iterator it = lower_bound_count(sortedChain.begin(), sortedChain.end(), straggler);
 		sortedChain.insert(it, straggler);
 
 		cout << indent << "straggler: " << straggler << endl;
