@@ -45,5 +45,8 @@ int main(int ac, char **av) {
 
 	cout << "\n\033[1;31mMAIN ENDED\033[0m\n" << endl;
 
+	cout << CLOCKS_PER_SEC << " is CLOCKS_PER_SEC" << endl;
+	cout << "Comparisons: " << PmergeMe._comparisons << endl;
+
 	return 0;
 }

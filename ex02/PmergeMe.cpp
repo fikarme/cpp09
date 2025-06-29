@@ -161,6 +161,7 @@ void PmergeMe::sortVec(vector<int> nums, size_t depth) {
 	//jacobIndices is a list of indices into pend that tells us
 	//the optimal order to insert them,
 	//based on the Jacobsthal sequence,
+	
 	size_t lastJacob = 1;
 	int k = 2;
 	while (true) {

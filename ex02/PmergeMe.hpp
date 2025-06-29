@@ -47,30 +47,30 @@ public:
 
 	void sort(int ac, char **av);
 
-        size_t _comparisons;
+		size_t _comparisons;
 
-        template<typename Iterator, typename T>
-        Iterator lower_bound_count(Iterator first, Iterator last, const T& val) {
-            typename std::iterator_traits<Iterator>::difference_type count, step;
-            count = std::distance(first, last);
+		template<typename Iterator, typename T>
+		Iterator lower_bound_count(Iterator first, Iterator last, const T& val) {
+			typename std::iterator_traits<Iterator>::difference_type count, step;
+			count = std::distance(first, last);
 
-            while (count > 0)
-            {
-                Iterator it = first;
-                step = count / 2;
-                std::advance(it, step);
-                _comparisons++; // It's giving... comparison
-                if (*it < val)
-                {
-                    first = ++it;
-                    count -= step + 1;
-                }
-                else
-                    count = step;
-            }
-            return first;
-        }
-		
+			while (count > 0)
+			{
+				Iterator it = first;
+				step = count / 2;
+				std::advance(it, step);
+				_comparisons++; // It's giving... comparison
+				if (*it < val)
+				{
+					first = ++it;
+					count -= step + 1;
+				}
+				else
+					count = step;
+			}
+			return first;
+		}
+
 };
 
 #endif
