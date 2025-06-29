@@ -118,7 +118,7 @@ void PmergeMe::sortVec(vector<int> nums) {
 	if (!pend.empty())
 		sortedChain.insert(sortedChain.begin(), pend[0]);
 
-	vector<size_t> jacob_indices;
+	vector<size_t> jacobIndices;
 	size_t lastJacob = 1;
 	int k = 2;
 	while (true) {
@@ -126,15 +126,15 @@ void PmergeMe::sortVec(vector<int> nums) {
 		if (jacob > pend.size())
 			jacob = pend.size();
 		for (size_t i = jacob; i > lastJacob; --i)
-			jacob_indices.push_back(i - 1);
+			jacobIndices.push_back(i - 1);
 		if (jacob == pend.size())
 			break;
 		lastJacob = jacob;
 		++k;
 	}
 
-	for (size_t i = 0; i < jacob_indices.size(); ++i) {
-		int val = pend[jacob_indices[i]];
+	for (size_t i = 0; i < jacobIndices.size(); ++i) {
+		int val = pend[jacobIndices[i]];
 		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), val);
 		sortedChain.insert(it, val);
 	}	//	lowerbound önemi
@@ -177,7 +177,7 @@ void PmergeMe::sortDeq(deque<int> nums) {
 	if (!pend.empty())
 		sortedChain.insert(sortedChain.begin(), pend[0]);
 
-	deque<size_t> jacob_indices;
+	deque<size_t> jacobIndices;
 	size_t lastJacob = 1;
 	int k = 2;
 	while (true) {
@@ -185,15 +185,15 @@ void PmergeMe::sortDeq(deque<int> nums) {
 		if (jacob > pend.size())
 			jacob = pend.size();
 		for (size_t i = jacob; i > lastJacob; --i)
-			jacob_indices.push_back(i - 1);
+			jacobIndices.push_back(i - 1);
 		if (jacob == pend.size())
 			break;
 		lastJacob = jacob;
 		++k;
 	}
 
-	for (size_t i = 0; i < jacob_indices.size(); ++i) {
-		int val = pend[jacob_indices[i]];
+	for (size_t i = 0; i < jacobIndices.size(); ++i) {
+		int val = pend[jacobIndices[i]];
 		deque<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), val);
 		sortedChain.insert(it, val);
 	}
