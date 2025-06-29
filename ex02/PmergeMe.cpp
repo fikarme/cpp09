@@ -16,7 +16,7 @@ PmergeMe &PmergeMe::operator=(const PmergeMe &rhs) {
 }
 
 void PmergeMe::printRes(int ac, char **av) const {
-	cout << "Before:    ";
+	cout << "Before:	";
 	for (int i = 1; i < ac; ++i)
 		cout << av[i] << " ";
 	cout << endl;
@@ -47,12 +47,23 @@ void PmergeMe::printRes(int ac, char **av) const {
 	<< "The faster one:  "
 	<< (_timeVec < _timeDeq ? "std::vector" : "std::deque")
 	<< endl << endl;
-}
+}	//!!!	subject çıktısına göre düzenle
 
-size_t PmergeMe::jacobsthal(int k) {
-	if (k < 0)
-		return 0;
-	return ((1 << (k)) - (k % 2 == 0 ? 1 : -1)) / 3;
+inline size_t PmergeMe::jacobsthal(int k) {
+	size_t prev = 0; // J(0)
+	size_t curr = 1; // J(1)
+	size_t next;
+	int i = 2;
+
+	while (i <= k)
+	{
+		next = curr + 2 * prev;
+		prev = curr;
+		curr = next;
+		++i;
+	}
+	return curr;
+	// return ((1 << (k)) - (k % 2 == 0 ? 1 : -1)) / 3;
 }	//	J(k) = (2^k - (-1)^k) / 3
 
 void PmergeMe::sort(int ac, char **av) {
@@ -109,7 +120,8 @@ void PmergeMe::sortVec(vector<int> nums) {
 
 	vector<size_t> jacob_indices;
 	size_t lastJacob = 1;
-	for (int k = 2; ; ++k) {
+	int k = 2;
+	while (true) {
 		size_t jacob = jacobsthal(k);
 		if (jacob > pend.size())
 			jacob = pend.size();
@@ -118,13 +130,14 @@ void PmergeMe::sortVec(vector<int> nums) {
 		if (jacob == pend.size())
 			break;
 		lastJacob = jacob;
+		++k;
 	}
 
 	for (size_t i = 0; i < jacob_indices.size(); ++i) {
 		int val = pend[jacob_indices[i]];
 		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), val);
 		sortedChain.insert(it, val);
-	}
+	}	//	lowerbound önemi
 
 	if (hasStraggler) {
 		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), straggler);
@@ -166,7 +179,8 @@ void PmergeMe::sortDeq(deque<int> nums) {
 
 	deque<size_t> jacob_indices;
 	size_t lastJacob = 1;
-	for (int k = 2; ; ++k) {
+	int k = 2;
+	while (true) {
 		size_t jacob = jacobsthal(k);
 		if (jacob > pend.size())
 			jacob = pend.size();
@@ -175,6 +189,7 @@ void PmergeMe::sortDeq(deque<int> nums) {
 		if (jacob == pend.size())
 			break;
 		lastJacob = jacob;
+		++k;
 	}
 
 	for (size_t i = 0; i < jacob_indices.size(); ++i) {

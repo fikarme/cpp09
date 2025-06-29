@@ -27,14 +27,14 @@ using std::fixed;
 
 class PmergeMe {
 private:
-	double _timeVec;
-	double _timeDeq;
+	double		_timeVec;
+	double		_timeDeq;
 	vector<int> _vec;
 	vector<int> _vecSorted;
-	deque<int> _deq;
-	deque<int> _deqSorted;
+	deque<int> 	_deq;
+	deque<int>	_deqSorted;
 
-	size_t jacobsthal(int k);
+	inline size_t jacobsthal(int k);
 	void sortVec(vector<int> nums);
 	void sortDeq(deque<int> nums);
 	void printRes(int ac, char **av) const;
