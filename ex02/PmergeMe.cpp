@@ -103,18 +103,36 @@ void PmergeMe::sortVec(vector<int> nums) {
 		if (nums[i] > nums[i + 1]) {
 			mainChain.push_back(nums[i]);
 			pend.push_back(nums[i + 1]);
+			cout << "mainChain.push_back(" << nums[i] << ")" << endl;
+			cout << "pend.push_back(" << nums[i + 1] << ")" << endl;
 		}
 		else {
 			mainChain.push_back(nums[i + 1]);
 			pend.push_back(nums[i]);
+			cout << "mainChain.push_back(" << nums[i + 1] << ")" << endl;
+			cout << "pend.push_back(" << nums[i] << ")" << endl;
 		}
 
+	cout << "mainChain size: " << mainChain.size() << endl;
+	cout << "pend size: " << pend.size() << endl;
+	cout << "mainChain: ";
+	for (size_t i = 0; i < mainChain.size(); ++i)
+		cout << mainChain[i] << " ";
+	cout << endl;
+	cout << "pend: ";
+	for (size_t i = 0; i < pend.size(); ++i)
+		cout << pend[i] << " ";
+	cout << endl;
 	sortVec(mainChain);
 	vector<int> sortedChain = _vecSorted;
 
 	if (!pend.empty())
 		sortedChain.insert(sortedChain.begin(), pend[0]);
 
+	cout << "sortedChain: ";
+	for (size_t i = 0; i < sortedChain.size(); ++i)
+		cout << sortedChain[i] << " ";
+	cout << endl;
 	vector<size_t> jacobIndices;
 	//jacobIndices is a list of indices into pend that tells us
 	//the optimal order to insert them,
@@ -124,6 +142,7 @@ void PmergeMe::sortVec(vector<int> nums) {
 	while (true) {
 		size_t jacob = jacobsthal(k);
 		cout <<  "k: " << k << " jacob: " << jacob << endl;
+		cout << "lastJacob: " << lastJacob << endl;
 		if (jacob > pend.size())
 			jacob = pend.size();
 		for (size_t i = jacob; i > lastJacob; --i)
@@ -133,19 +152,31 @@ void PmergeMe::sortVec(vector<int> nums) {
 		lastJacob = jacob;
 		++k;
 	}
+	cout << "jacobIndices: ";
+	for (size_t i = 0; i < jacobIndices.size(); ++i)
+		cout << jacobIndices[i] << " ";
+	cout << endl;
 
 	for (size_t i = 0; i < jacobIndices.size(); ++i) {
 		int val = pend[jacobIndices[i]];
 		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), val);
+		cout << "val: " << val << endl;
+		cout << "it: " << *it << endl;
 		sortedChain.insert(it, val);
 	}	//	lowerbound önemi
 
 	if (hasStraggler) {
 		vector<int>::iterator it = lower_bound(sortedChain.begin(), sortedChain.end(), straggler);
+		cout << "straggler: " << straggler << endl;
+		cout << "it: " << *it << endl;
 		sortedChain.insert(it, straggler);
 	}
 
 	_vecSorted = sortedChain;
+	cout << "last sortedChain: ";
+	for (size_t i = 0; i < sortedChain.size(); ++i)
+		cout << sortedChain[i] << " ";
+	cout << endl;
 }
 
 void PmergeMe::sortDeq(deque<int> nums) {

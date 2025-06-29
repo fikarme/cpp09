@@ -22,8 +22,8 @@ fclean: clean
 re: fclean all
 
 e: fclean all
-	./$(NAME) 1 2 3 4 5
+#	./$(NAME) 1 2 3 4 5
 	./$(NAME) 3 5 9 7 4
-	./$(NAME) `shuf -i 1-42 -n 31 | tr "\n" " "`
+#	./$(NAME) `shuf -i 1-42 -n 31 | tr "\n" " "`
 
 .PHONY: all clean fclean re e
