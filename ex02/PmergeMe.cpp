@@ -63,6 +63,7 @@ inline size_t PmergeMe::jacobsthal(int k) {
 		++i;
 	}
 	return curr;
+	//return ((1 << (k + 1)) + (k % 2 == 0 ? 1 : -1)) / 3; ASIL DORU
 	// return ((1 << (k)) - (k % 2 == 0 ? 1 : -1)) / 3;
 }	//	J(k) = (2^(k+1) + (-1)^k) / 3
 
