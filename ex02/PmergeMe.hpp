@@ -18,8 +18,12 @@ using std::runtime_error;
 using std::atoi;
 #include <ctime>
 using std::clock;
+using std::clock_t;
 #include <algorithm>
 using std::lower_bound;
+#include <iomanip>
+using std::setprecision;
+using std::fixed;
 
 class PmergeMe {
 private:
